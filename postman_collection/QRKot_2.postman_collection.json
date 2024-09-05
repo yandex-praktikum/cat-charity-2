@@ -3387,7 +3387,7 @@
 							"response": []
 						},
 						{
-							"name": "create_second_donation // Second User",
+							"name": "create_second_donation_without_comment // Second User",
 							"event": [
 								{
 									"listen": "test",
@@ -3450,7 +3450,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"full_amount\": {{secondDonationAmount}},\n    \"comment\": \"Second donation\"\n}",
+									"raw": "{\n    \"full_amount\": {{secondDonationAmount}}\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -6170,98 +6170,6 @@
 								"body": {
 									"mode": "raw",
 									"raw": "{\n    \"full_amount\": 500,\n    \"comment\": \"Unauthorized user donation\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseURL}}/donation/",
-									"host": [
-										"{{baseURL}}"
-									],
-									"path": [
-										"donation",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "create_donation_without_comment_field // Second User",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const responseData = pm.response.json();",
-											"const responseSchema = {",
-											"    \"type\": \"object\",",
-											"    \"properties\": {",
-											"        \"detail\": {",
-											"            \"type\": \"array\",",
-											"            \"items\": {",
-											"                \"type\": \"object\",",
-											"                \"properties\": {",
-											"                    \"type\": {",
-											"                        \"type\": \"string\"",
-											"                    },",
-											"                    \"loc\": {",
-											"                        \"type\": \"array\",",
-											"                        \"items\": {",
-											"                            \"type\": \"string\"",
-											"                        }",
-											"                    },",
-											"                    \"msg\": {",
-											"                        \"type\": \"string\"",
-											"                    },",
-											"                    \"input\": {",
-											"                        \"type\": \"object\"",
-											"                    }",
-											"                },",
-											"                \"required\": [\"loc\", \"msg\", \"type\"],",
-											"                \"additionalProperties\": false",
-											"            }",
-											"        }",
-											"    },",
-											"    \"required\": [\"detail\"],",
-											"    \"additionalProperties\": false",
-											"};",
-											"",
-											"pm.test(\"Статус-код ответа должен быть 422\", function () {",
-											"    pm.expect(",
-											"        pm.response.status,",
-											"        \"Убедитесь, что корректный запроc зарегистрированного пользователя возвращает ответ со статус-кодом 200\"",
-											"    ).to.be.eql(\"Unprocessable Entity\");",
-											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
-											"    pm.response.to.have.jsonSchema(responseSchema);",
-											"});",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{secondUserToken}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"full_amount\": {{secondDonationAmount}}\n}",
 									"options": {
 										"raw": {
 											"language": "json"
